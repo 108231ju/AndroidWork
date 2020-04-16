@@ -44,12 +44,13 @@
         android:layout_width="match_parent"
         android:layout_height="153dp"
         android:gravity="left"
+        android:minWidth="77dp"
         android:text="Button" />
 
     <Button
         android:id="@+id/button8"
         android:layout_width="match_parent"
-        android:layout_height="153dp"
+        android:layout_height="149dp"
         android:text="Button" />
 
     <Button
