@@ -1,63 +1,76 @@
 package com.lec.android.a008_practice;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import com.lec.android.a008_practice.Information;
+import com.lec.android.a008_practice.InformationAdapter;
+import com.lec.android.a008_practice.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
+//by 주낙경
 public class MainActivity extends AppCompatActivity {
 
-    PhonebookAdapter adapter;  // Adapter 객체
+    InformationAdapter adapter;
+    EditText etName, etAge, etAddress;
     RecyclerView rv;
+    Button btnAdd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        rv = findViewById(R.id.rv);
+        etName = findViewById(R.id.etName);
+        etAge = findViewById(R.id.etAge);
+        etAddress = findViewById(R.id.etAddress);
 
-        // RecyclerView 를 사용하기 위해서는 LayoutManager 지정해주어야 한다.
+        rv = findViewById(R.id.rv);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(layoutManager);
+        adapter = new InformationAdapter();
 
-        // Adapter객체 생성
-        adapter = new PhonebookAdapter();
+        btnAdd = findViewById(R.id.btnAdd);
 
-        initAdapter(adapter);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        rv.setAdapter(adapter);
+                insertData(v);
 
+                rv.setAdapter(adapter);
 
+            }
+        });
 
     } // end onCreate()
 
-    // 샘플데이터 가져오기
-    protected void initAdapter(PhonebookAdapter adapter){
-        // 몇개만 생성
-        for(int i = 0; i < 10; i++){
-            int idx = D.next();
-            adapter.addItem(new Phonebook(D.NAME[idx], D.AGE[idx], D.ADDRESS[idx]));
-        }
-    }
-
     protected void insertData(View v){
-        int idx = D.next();
-        // 리스트 맨 앞에 추가
-        adapter.addItem(0, new Phonebook( D.NAME[idx], D.AGE[idx], D.ADDRESS[idx]));
-        adapter.notifyDataSetChanged();// 데이터 변경을 Adapter 에 알리고 , 리스트뷰에 반영
-    }
+        int idx = 0;
+        String name = etName.getText().toString();
+        int age = Integer.parseInt(etAge.getText().toString());
+        String address = etAddress.getText().toString();
 
-    protected void appendData(View v){
-        int idx = D.next();
+        List<String> nameList = new ArrayList<>();
+        List<Integer> ageList = new ArrayList<>();
+        List<String> addressList = new ArrayList<>();
 
-        //리스트 맨 뒤에 추가
-        adapter.addItem(0, new Phonebook( D.NAME[idx], D.AGE[idx], D.ADDRESS[idx]));
+        nameList.add(name);
+        ageList.add(age);
+        addressList.add(address);
+
+        adapter.addItem(new Information(nameList.get(idx), ageList.get(idx), addressList.get(idx)));
         adapter.notifyDataSetChanged();
-    }
+        idx++;
+    } // end insertData()
+
 } // end Activity
-
-

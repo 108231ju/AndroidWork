@@ -2,18 +2,19 @@ package com.lec.android.a008_practice;
 
 import java.io.Serializable;
 
-public class Phonebook implements Serializable {
-    String name; // 이름
-    String age; // 전화번호
-    String address; // 이메일
+public class Information implements Serializable {
 
-    public Phonebook() {
+    String name;
+    int age;
+    String Address;
+
+    public Information() {
     }
 
-    public Phonebook(String name, String age, String address) {
+    public Information(String name, int age, String address) {
         this.name = name;
         this.age = age;
-        this.address = address;
+        Address = address;
     }
 
     public String getName() {
@@ -24,19 +25,19 @@ public class Phonebook implements Serializable {
         this.name = name;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        Address = address;
     }
 }
